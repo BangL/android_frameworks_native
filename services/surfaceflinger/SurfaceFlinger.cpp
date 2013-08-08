@@ -2801,7 +2801,6 @@ status_t SurfaceFlinger::captureScreen(const sp<IBinder>& display,
         virtual bool handler() {
             Mutex::Autolock _l(flinger->mStateLock);
             sp<const DisplayDevice> hw(flinger->getDisplayDevice(display));
-#ifndef NEEDS_LEGACY_FB
             if (!useReadPixels) {
                 result = flinger->captureScreenImplLocked(hw,
                         producer, reqWidth, reqHeight, minLayerZ, maxLayerZ);
@@ -2814,7 +2813,6 @@ status_t SurfaceFlinger::captureScreen(const sp<IBinder>& display,
                         producer, reqWidth, reqHeight, minLayerZ, maxLayerZ);
 #endif
             }
-#endif
             static_cast<GraphicProducerWrapper*>(producer->asBinder().get())->exit(result);
             return true;
         }
